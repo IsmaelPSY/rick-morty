@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
+.searchBox{
+    background-color: #282c34;
+    color: #fff;
+    text-align: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.searchInput{
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

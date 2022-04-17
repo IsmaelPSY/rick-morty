@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 
 import ResidentInfo from "./ResidentInfo"
 
+import './ResidentContainer.css'
+
 
 import getInfo from "../services/getInfo"
 

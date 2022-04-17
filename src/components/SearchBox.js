@@ -3,6 +3,8 @@ import { useState,useEffect } from "react"
 // Services
 import getInfo from "../services/getInfo"
 
+// css
+import './SearchBox.css'
 
 // Components
 import LocationContainer from "./LocationContainer"
@@ -12,15 +14,12 @@ const SearchBox = () => {
     // Generate a random number for the initial location.
     // Locations = 1-126
     const random = Math.floor(Math.random() * 126 + 1);
-  
+
     const [allLocations, setAllLocations] = useState([])
     const [nexPetition, setNextPetition] = useState('https://rickandmortyapi.com/api/location?page=1')
     const [filterValue , setFilterValue] = useState('')
     const [list, setList] = useState([])
-    const [urlLocation, setUrlLocation] = useState('')
-
-
-
+    const [urlLocation, setUrlLocation] = useState(`https://rickandmortyapi.com/api/location/${random}`)
 
 
     useEffect(()=>{
@@ -47,11 +46,13 @@ const SearchBox = () => {
 
 
     return (
-        <div>
+        <div className="searchBox">
+            <div className="searchInput">
             <input type='text' placeholder='Type a Location' onChange={e => setFilterValue(e.target.value)}/>
             {
-                filterValue ? <div>{list}</div> : null
+                filterValue ? <div className="locationList">{list}</div> : null
             }
+            </div>
             <LocationContainer url={urlLocation}/>
             <ResidentContainer url={urlLocation}/>
         </div>

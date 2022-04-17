@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import getInfo from '../services/getInfo';
 
+import './LocationContainer.css'
+
 // Components
 import LocationInfo from './LocationInfo';
 
@@ -28,7 +30,7 @@ const LocationContainer = ({url}) => {
     
 
     return (
-        <div>
+        <div className='locationContainer'>
             <LocationInfo 
             name = {name}
             type = {type}
