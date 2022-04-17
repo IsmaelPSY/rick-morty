@@ -1,6 +1,6 @@
-// Services
 import { useEffect, useState } from 'react';
-import getLocationInfo from '../services/getLocationInfo'
+
+import getInfo from '../services/getInfo';
 
 // Components
 import LocationInfo from './LocationInfo';
@@ -12,9 +12,10 @@ const LocationContainer = ({url}) => {
     const [dimension, setDimension] = useState('')
     const [residents , setResidents] = useState(0)
     
+
     useEffect(()=>{
         if (url){
-        getLocationInfo(url)
+        getInfo(url)
             .then((res) => {
                 setName(res.data.name)
                 setType(res.data.type)
@@ -23,6 +24,8 @@ const LocationContainer = ({url}) => {
             })
         }
     },[url])
+
+    
 
     return (
         <div>

@@ -1,9 +1,8 @@
 import { useState,useEffect } from "react"
 
 // Services
-import getAllLocations from "../services/getAllLocations"
-import getResidentInfo from "../services/getResidentInfo"
-import getLocationInfo from "../services/getLocationInfo"
+import getInfo from "../services/getInfo"
+
 
 // Components
 import LocationContainer from "./LocationContainer"
@@ -19,13 +18,14 @@ const SearchBox = () => {
     const [filterValue , setFilterValue] = useState('')
     const [list, setList] = useState([])
     const [urlLocation, setUrlLocation] = useState('')
-    const [listUrlResidents, setListUrlResidents] = useState([])
-    const [listResidents, setListResidents] = useState([])
+
+
+
 
 
     useEffect(()=>{
         if(nexPetition){
-            getAllLocations(nexPetition)
+            getInfo(nexPetition)
             .then((resp)=>{
                 setNextPetition(resp.data.info.next)
                 setAllLocations(allLocations.concat(resp.data.results))
@@ -38,34 +38,17 @@ const SearchBox = () => {
     
 
     useEffect(()=>{
-        setList(allLocations.filter((location)=> location.name.toUpperCase().includes(filterValue.toUpperCase())).map((location)=><button key={location.id} onClick={()=>setUrlLocation(location.url)}>{location.name}</button>))
+        setList(allLocations.filter((location)=> location.name.toUpperCase().includes(filterValue.toUpperCase())).map((location)=><button 
+            key={location.id} 
+            onClick={()=>{
+                setUrlLocation(location.url)
+            }}>{location.name}</button>))
     },[allLocations,filterValue])
 
-    useEffect(()=>{
-        if(urlLocation){
-            getLocationInfo(urlLocation)
-                .then(resp =>{
-                    setListUrlResidents(resp.data.residents)
-                })
-        }
-    },[urlLocation])
-
-
-        listUrlResidents.forEach( url => {
-            if(url){
-                getResidentInfo(url)
-                    .then(resp => {
-                        // setListResidents(listResidents.concat(resp.data))
-                    })
-            }
-        })
-
-
-    console.log(listResidents)
 
     return (
         <div>
-            <input type='text' placeholder='Type a Location' onChange={e => setFilterValue(e.target.value)}></input>
+            <input type='text' placeholder='Type a Location' onChange={e => setFilterValue(e.target.value)}/>
             {
                 filterValue ? <div>{list}</div> : null
             }
